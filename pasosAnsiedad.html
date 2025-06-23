@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebook: 5 Pasos para Vencer la Ansiedad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        /* Screen Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f7; 
+        }
+        
+        .book-container {
+            max-width: 820px;
+            margin: 2rem auto;
+        }
+
+        .page {
+            background-color: white;
+            padding: 2.5rem 4rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 95vh;
+        }
+        
+        .page-content {
+            flex-grow: 1;
+        }
+
+        .page h1 {
+            font-family: 'Lora', serif;
+            color: #111827;
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+        
+        .page h2 {
+            font-family: 'Lora', serif;
+            color: #1e40af;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            border-bottom: 2px solid #93c5fd; 
+            padding-bottom: 0.5rem;
+        }
+        
+        .page p, .page li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+            text-align: justify;
+        }
+
+        .author-name {
+            font-family: 'Lora', serif;
+            font-size: 10.5rem; /* Unified large size */
+            font-weight: 600;
+            color: #111827;
+            text-align: center;
+        }
+
+        .exercise-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0.25rem;
+        }
+        .exercise-box h3 {
+            font-family: 'Lora', serif;
+            color: #1e3a8a;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .page-footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+            padding-top: 2rem;
+            width: 100%;
+        }
+        
+        .worksheet {
+            background-color: #f0f9ff; 
+        }
+
+        .fillable-space {
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb;
+            min-height: 100px;
+            margin-top: 0.5rem;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+        }
+        
+        .citation {
+            font-size: 0.75rem;
+            vertical-align: super;
+            color: #1d4ed8;
+        }
+
+        #print-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        /* Print Styles for US Letter Landscape */
+        @page {
+            size: letter landscape;
+            margin: 1.2cm;
+        }
+
+        @media print {
+            html, body {
+                background: white !important;
+                font-size: 10pt;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            .book-container {
+                margin: 0;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+            }
+            .page {
+                width: 100%;
+                height: 19.19cm; /* Letter height (21.59cm) - 2.4cm margins */
+                padding: 0;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+                page-break-after: always;
+                display: flex;
+                flex-direction: column;
+                background-color: white !important;
+            }
+            .page-content {
+                flex-grow: 1;
+                overflow: hidden; /* CRITICAL: PREVENTS CONTENT FROM PUSHING FOOTER */
+                padding: 0.5cm 0; /* Use full width */
+            }
+            #print-button {
+                display: none;
+            }
+            .page h1 {
+                font-size: 22pt;
+                line-height: 1.2;
+            }
+            .page h2 {
+                font-size: 15pt;
+                margin-top: 1rem;
+                padding-bottom: 0.3rem;
+            }
+            .page p, .page li {
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+            .author-name {
+                 font-size: 10.5rem; /* Unified large size for print */
+                 text-align: center;
+                 line-height: 1; /* Adjust line height to prevent clipping */
+            }
+            .page p.text-xl {
+                font-size: 13pt;
+            }
+            .exercise-box {
+                padding: 0.8rem;
+                margin-top: 1rem;
+                background-color: #eff6ff !important;
+                border-left: 4px solid #3b82f6 !important;
+            }
+            .worksheet {
+                background-color: #f0f9ff !important;
+            }
+            .fillable-space {
+                background-color: #f9fafb !important;
+                border: 1px solid #ccc !important;
+                min-height: 45px;
+            }
+            .page-footer {
+                flex-shrink: 0;
+                text-align: center;
+                width: 100%;
+                padding: 0.5cm 0 0;
+                font-size: 9pt;
+            }
+            .page .w-full.mt-12 img {
+                max-height: 7cm; /* Slightly reduce image height to accommodate large author name */
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button id="print-button" onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-full shadow-lg transition-transform transform hover:scale-105">
+        Imprimir / Guardar como PDF
+    </button>
+
+    <div class="book-container">
+        <!-- Page 1 -->
+        <div class="page text-center">
+            <div class="page-content flex flex-col justify-center">
+                <h1 class="text-5xl">5 Pasos para Vencer la Ansiedad</h1>
+                <p class="mt-4 text-xl text-gray-500" style="text-align: center;">Una guía práctica para recuperar la calma y el control de tu vida.</p>
+                <div class="w-full mt-12 flex items-center justify-center">
+                    <img src="bg2.png" alt="Ilustración conceptual de ansiedad a calma" class="max-w-full h-auto rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0f2fe/1e40af?text=Imagen+de+Portada';">
+                </div>
+            </div>
+            <div class="page-footer flex justify-center items-center">
+                <p class="author-name">Brenda Contreras</p>
+            </div>
+        </div>
+        
+        <!-- Page 2 -->
+        <div class="page">
+            <div class="page-content">
+                <div class="text-sm text-gray-700 mt-8">
+                    <p class="font-bold">5 Pasos para Vencer la Ansiedad</p>
+                    <p>© 2025 Brenda Contreras</p>
+                    <p>Todos los derechos reservados.</p>
+                    <br>
+                    <p>Queda prohibida la reproducción total o parcial de esta obra, por cualquier medio o procedimiento, sin la autorización previa, expresa y por escrito del titular de los derechos de autor.</p>
+                </div>
+                <div class="mt-12 pt-8 border-t-2 border-gray-200">
+                    <p class="text-sm text-gray-500 italic">
+                        <strong>Nota importante (Descargo de responsabilidad):</strong> Esta guía es una herramienta de autoayuda y no reemplaza el consejo o tratamiento de un profesional de la salud mental. La información contenida aquí se proporciona únicamente con fines educativos. Si tu ansiedad es severa o te impide llevar una vida funcional, por favor, considera buscar la ayuda de un psicólogo o terapeuta cualificado. El autor no se hace responsable de las decisiones tomadas por el lector.
+                    </p>
+                </div>
+            </div>
+            <div class="page-footer">Página 2</div>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="page">
+            <div class="page-content">
+                <h2>Agradecimientos</h2>
+                <p class="mt-4">Quiero expresar mi más sincero agradecimiento a las siguientes personas, cuya invaluable perspectiva y revisiones han enriquecido enormemente este manual, asegurando que el contenido sea claro, compasivo y útil.</p>
+                <ul class="list-disc list-inside mt-6 space-y-3">
+                    <li>Nombre y Apellido del Revisor 1</li>
+                    <li>Nombre y Apellido del Revisor 2</li>
+                    <li>Nombre y Apellido del Revisor 3</li>
+                    <li>Nombre y Apellido del Revisor 4</li>
+                    <li>Nombre y Apellido del Revisor 5</li>
+                </ul>
+            </div>
+            <div class="page-footer">Página 3</div>
+        </div>
+
+        <!-- Page 4 -->
+        <div class="page">
+            <div class="page-content">
+                <h2>Bienvenido/a a un nuevo comienzo</h2>
+                <p class="mt-4">Si estas páginas están en tus manos, es muy probable que conozcas bien el peso de la ansiedad. Tal vez se siente como un nudo en el estómago, un motor que nunca se apaga o una voz en tu cabeza que insiste en que algo malo está a punto de suceder. Sé lo agotador que puede ser.</p>
+                <p class="mt-4">Pero también sé que es posible cambiar esa realidad. Mi promesa para ti es entregarte <strong>5 pasos prácticos y honestos</strong>, basados en técnicas de la Terapia Cognitivo-Conductual (TCC), que funcionan como herramientas reales para entender y manejar tu ansiedad.</p>
+                <h2 class="mt-8">¿Cómo usar esta guía?</h2>
+                <ul class="list-disc list-inside mt-2 space-y-2">
+                    <li><strong>Ve a tu propio ritmo.</strong> No hay prisa.</li>
+                    <li><strong>Sé amable contigo mismo/a.</strong> Esto es práctica, no perfección.</li>
+                    <li><strong>Usa las hojas de ejercicio.</strong> Son el corazón de este método. Escribir clarifica y transforma.</li>
+                </ul>
+                <p class="mt-6 font-semibold">Estás a punto de dar el paso más importante: el primero. Vamos a hacerlo juntos.</p>
+            </div>
+            <div class="page-footer">Página 4</div>
+        </div>
+
+        <!-- Page 5 -->
+        <div class="page">
+            <div class="page-content">
+                <p class="text-blue-600 font-bold">PASO 1</p>
+                <h1>Entiende a tu Ansiedad: El Primer Vistazo</h1>
+                <p class="mt-4">La ansiedad no es un monstruo invencible; es una reacción de tu cuerpo que puedes aprender a interpretar y manejar. Es la alarma de incendios de tu cuerpo, diseñada para protegerte del peligro. El problema es que, a veces, la alarma es demasiado sensible y se activa sin un fuego real.<sup class="citation">[1]</sup></p>
+                <h2 class="mt-6">No estás solo/a en esto</h2>
+                <p class="mt-4">Sentir ansiedad puede ser muy solitario, pero es una de las condiciones humanas más comunes. No hay nada "roto" en ti.</p>
+                <h2 class="mt-6">Diferencia clave: Estrés vs. Ansiedad</h2>
+                 <ul class="list-disc list-inside mt-2 space-y-2">
+                    <li><strong>Estrés:</strong> Es una respuesta a un desencadenante externo y conocido (un examen, una fecha límite).</li>
+                    <li><strong>Ansiedad:</strong> Es más interna y puede persistir sin un motivo claro, alimentada por la preocupación sobre el futuro.</li>
+                </ul>
+                <div class="exercise-box mt-8">
+                    <h3>Ejercicio Práctico: Mi Mapa de Ansiedad</h3>
+                    <p class="mt-2">Para tomar el control, primero debemos observar. En la siguiente página encontrarás tu primera hoja de ejercicios para comenzar a trazar tu propio mapa.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 5</div>
+        </div>
+        
+        <!-- Page 6 -->
+        <div class="page worksheet">
+            <div class="page-content">
+                <h2 class="text-center">Hoja de Ejercicio: Mi Mapa de Ansiedad</h2>
+                <p class="text-center mb-6" style="text-align: center;">Usa este espacio para conocer cómo se manifiesta tu ansiedad.</p>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">1. ¿Cómo se siente la ansiedad en mi cuerpo? (Sensaciones físicas)</label>
+                    <div class="fillable-space"></div>
+                </div>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">2. ¿Qué pensamientos suelen acompañarla? (Preocupaciones, miedos)</label>
+                    <div class="fillable-space"></div>
+                </div>
+                <div>
+                    <label class="font-bold text-gray-700">3. ¿En qué situaciones o momentos suele aparecer? (Desencadenantes)</label>
+                    <div class="fillable-space"></div>
+                </div>
+            </div>
+            <div class="page-footer">Página 6</div>
+        </div>
+
+        <!-- Page 7 -->
+        <div class="page">
+             <div class="page-content">
+                <p class="text-blue-600 font-bold">PASO 2</p>
+                <h1>Calma tu Cuerpo: Anclaje al Presente</h1>
+                <p class="mt-4">Cuando la ansiedad ataca, secuestra tu cuerpo. Afortunadamente, tienes un poder inmenso para revertir esto: tu respiración. Calmar tu estado físico le envía a tu cerebro la señal de <strong>"estamos a salvo".</strong><sup class="citation">[2]</sup></p>
+                <h2 class="mt-6">La Técnica de Emergencia: Respiración Diafragmática (4-7-8)</h2>
+                <p class="mt-4">Esta técnica es tu ancla. Activa el nervio vago y el sistema nervioso parasimpático, el "freno" natural del cuerpo.</p>
+                <ol class="list-decimal list-inside mt-4 space-y-2">
+                    <li>Exhala todo el aire.</li>
+                    <li><strong>Inhala</strong> por la nariz contando hasta <strong>4</strong>.</li>
+                    <li><strong>Sostén</strong> la respiración contando hasta <strong>7</strong>.</li>
+                    <li><strong>Exhala</strong> por la boca contando hasta <strong>8</strong>. Repite 3-4 veces.</li>
+                </ol>
+                <div class="exercise-box mt-8">
+                    <h3>Ejercicio Práctico: Ancla en tus 5 Sentidos</h3>
+                    <p class="mt-2">La ansiedad vive en el futuro. Este ejercicio te obliga a volver al <strong>AHORA</strong>. Prepárate para practicarlo en la siguiente página.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 7</div>
+        </div>
+        
+        <!-- Page 8 -->
+        <div class="page worksheet">
+            <div class="page-content">
+                 <h2 class="text-center">Hoja de Ejercicio: Ancla en mis 5 Sentidos</h2>
+                <p class="text-center mb-6" style="text-align: center;">Cuando sientas que la ansiedad aumenta, detente y completa esto.</p>
+                <div class="mb-4">
+                    <label class="font-bold text-gray-700">Nombra 5 cosas que puedas VER:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                 <div class="mb-4">
+                    <label class="font-bold text-gray-700">Nombra 4 cosas que puedas SENTIR (tacto):</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                 <div class="mb-4">
+                    <label class="font-bold text-gray-700">Nombra 3 cosas que puedas OÍR:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                <div class="mb-4">
+                    <label class="font-bold text-gray-700">Nombra 2 cosas que puedas OLER:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                 <div>
+                    <label class="font-bold text-gray-700">Nombra 1 cosa que puedas SABOREAR:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+            </div>
+            <div class="page-footer">Página 8</div>
+        </div>
+
+        <!-- Page 9 -->
+        <div class="page">
+            <div class="page-content">
+                <p class="text-blue-600 font-bold">PASO 3</p>
+                <h1>Cuestiona tus Pensamientos: El Diálogo Interno</h1>
+                <p class="mt-4">La ansiedad nos cuenta historias catastróficas. La clave es convertirte en un detective amable de tus propios pensamientos, una técnica central de la TCC.<sup class="citation">[3]</sup></p>
+                <h2 class="mt-6">La Regla de Oro: No eres tus pensamientos</h2>
+                <p class="mt-4">Un pensamiento es solo una idea, no la verdad absoluta. No tienes que creer todo lo que tu mente te dice. Identifica los patrones comunes (distorsiones cognitivas) como el catastrofismo, el "todo o nada" o leer la mente.</p>
+                <div class="exercise-box mt-8">
+                    <h3>Ejercicio Práctico: El Interrogatorio Amistoso</h3>
+                    <p class="mt-2">La próxima vez que un pensamiento ansioso te atrape, no luches. Llévalo a juicio con las preguntas de la siguiente hoja de ejercicio.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 9</div>
+        </div>
+        
+         <!-- Page 10 -->
+        <div class="page worksheet">
+            <div class="page-content">
+                <h2 class="text-center">Hoja de Ejercicio: El Interrogatorio Amistoso</h2>
+                <p class="text-center mb-6" style="text-align: center;">Elige un pensamiento ansioso recurrente y pásalo por este filtro.</p>
+                 <div class="mb-6">
+                    <label class="font-bold text-gray-700">El pensamiento ansioso es:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">1. ¿Qué evidencia REAL tengo de que es 100% cierto?</label>
+                    <div class="fillable-space"></div>
+                </div>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">2. ¿Cuál es una explicación alternativa o un resultado más realista?</label>
+                    <div class="fillable-space"></div>
+                </div>
+                <div>
+                    <label class="font-bold text-gray-700">3. ¿Qué le diría a un amigo/a que tuviera este mismo pensamiento?</label>
+                    <div class="fillable-space"></div>
+                </div>
+            </div>
+            <div class="page-footer">Página 10</div>
+        </div>
+
+        <!-- Page 11 -->
+        <div class="page">
+             <div class="page-content">
+                <p class="text-blue-600 font-bold">PASO 4</p>
+                <h1>Actúa a Pesar del Miedo: Pequeñas Victorias</h1>
+                <p class="mt-4">La ansiedad crece en la inacción. Cada vez que evitas algo que te da miedo, tu mundo se hace más pequeño.<sup class="citation">[2]</sup> La única forma de romper este ciclo es actuar.</p>
+                <h2 class="mt-6">El Poder de la Exposición Gradual</h2>
+                <p class="mt-4">No se trata de saltar de un acantilado. Se trata de construir una escalera y subir, peldaño a peldaño, a tu propio ritmo. Esto le enseña a tu cerebro que eres capaz y que la situación no es tan peligrosa como parecía.</p>
+                <div class="exercise-box mt-8">
+                    <h3>Ejercicio Práctico: Mi Primer Peldaño</h3>
+                    <p class="mt-2">Es hora de construir tu propia escalera del valor. En la siguiente página, identificarás un miedo y lo dividirás en pasos manejables.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 11</div>
+        </div>
+
+        <!-- Page 12 -->
+        <div class="page worksheet">
+            <div class="page-content">
+                <h2 class="text-center">Hoja de Ejercicio: Mi Escalera del Valor</h2>
+                <p class="text-center mb-6" style="text-align: center;">Elige una situación que evitas y diséñala en pequeños pasos.</p>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">La situación que evito por ansiedad es:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label>Peldaño 4 (El más difícil):</label>
+                        <div class="fillable-space" style="min-height:40px;"></div>
+                    </div>
+                    <div>
+                        <label>Peldaño 3:</label>
+                        <div class="fillable-space" style="min-height:40px;"></div>
+                    </div>
+                     <div>
+                        <label>Peldaño 2:</label>
+                        <div class="fillable-space" style="min-height:40px;"></div>
+                    </div>
+                     <div>
+                        <label>Peldaño 1 (El más fácil - ¡Mi tarea para esta semana!):</label>
+                        <div class="fillable-space" style="min-height:40px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-footer">Página 12</div>
+        </div>
+        
+        <!-- Page 13 -->
+        <div class="page">
+            <div class="page-content">
+                <p class="text-blue-600 font-bold">PASO 5</p>
+                <h1>Crea un Estilo de Vida Anti-Ansiedad: El Mantenimiento</h1>
+                <p class="mt-4">Los primeros cuatro pasos son tu rescate. Este último es tu plan de prevención. Tu bienestar general es tu mejor escudo.</p>
+                <h2 class="mt-6">Los 4 Pilares Fundamentales de tu Bienestar</h2>
+                <ul class="list-disc list-inside mt-2 space-y-3">
+                    <li><strong>Movimiento:</strong> Una caminata diaria es un potente ansiolítico natural.</li>
+                    <li><strong>Descanso:</strong> El sueño es crucial. Prioriza una rutina relajante antes de dormir.</li>
+                    <li><strong>Alimentación Consciente:</strong> Observa cómo la cafeína y el azúcar te afectan.</li>
+                    <li><strong>Desconexión y Ocio:</strong> Dedica tiempo a un hobby o simplemente a no hacer nada.</li>
+                </ul>
+                <div class="exercise-box mt-8">
+                    <h3>Ejercicio Práctico: Mi Micro-Hábito de Calma</h3>
+                    <p class="mt-2">El cambio duradero se construye con pequeños ladrillos. Elige uno, y solo uno, para empezar esta semana.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 13</div>
+        </div>
+
+        <!-- Page 14 -->
+        <div class="page worksheet">
+            <div class="page-content">
+                <h2 class="text-center">Hoja de Ejercicio: Mi Micro-Hábito de Calma</h2>
+                <p class="text-center mb-6" style="text-align: center;">Elige UN hábito y comprométete a practicarlo esta semana.</p>
+                <div class="mb-6">
+                    <label class="font-bold text-gray-700">Mi micro-hábito elegido es:</label>
+                    <div class="fillable-space" style="min-height:50px;"></div>
+                </div>
+                 <label class="font-bold text-gray-700">Registro Semanal (Marca cada día que lo cumplas):</label>
+                <div class="grid grid-cols-7 gap-2 text-center mt-2">
+                    <div class="p-2 border rounded">L</div>
+                    <div class="p-2 border rounded">M</div>
+                    <div class="p-2 border rounded">X</div>
+                    <div class="p-2 border rounded">J</div>
+                    <div class="p-2 border rounded">V</div>
+                    <div class="p-2 border rounded">S</div>
+                    <div class="p-2 border rounded">D</div>
+                </div>
+                 <div class="mt-8">
+                    <label class="font-bold text-gray-700">¿Cómo me sentí al practicar este hábito?</label>
+                    <div class="fillable-space"></div>
+                </div>
+            </div>
+            <div class="page-footer">Página 14</div>
+        </div>
+        
+        <!-- Page 15 -->
+        <div class="page">
+            <div class="page-content">
+                <h2>Preguntas Frecuentes sobre la Ansiedad</h2>
+                <div class="mt-6">
+                    <h3 class="font-bold text-lg text-blue-800">¿La ansiedad desaparecerá para siempre?</h3>
+                    <p class="mt-2">La ansiedad es una emoción humana normal, como la alegría o la tristeza. El objetivo no es eliminarla por completo, sino reducir su intensidad y frecuencia para que no controle tu vida. Aprenderás a manejarla, no a erradicarla.</p>
+                </div>
+                <div class="mt-6">
+                    <h3 class="font-bold text-lg text-blue-800">¿Y si tengo un mal día? ¿Significa que he fracasado?</h3>
+                    <p class="mt-2">Absolutamente no. La recuperación no es una línea recta. Habrá días mejores y peores. Un mal día es solo eso: un día. Es una oportunidad para practicar tus herramientas, no una señal de fracaso. Sé amable contigo mismo.</p>
+                </div>
+                <div class="mt-6">
+                    <h3 class="font-bold text-lg text-blue-800">¿Cuánto tiempo tardaré en sentirme mejor?</h3>
+                    <p class="mt-2">No hay un plazo fijo. Algunas personas notan cambios al practicar las técnicas de respiración de inmediato, mientras que desafiar pensamientos y enfrentar miedos lleva más tiempo. La clave es la constancia, no la velocidad.</p>
+                </div>
+                 <div class="mt-6">
+                    <h3 class="font-bold text-lg text-blue-800">¿Cuándo debería buscar ayuda profesional?</h3>
+                    <p class="mt-2">Si sientes que la ansiedad interfiere significativamente con tu trabajo, tus relaciones o tu capacidad para disfrutar de la vida, o si este manual no es suficiente, buscar la ayuda de un terapeuta es un paso valiente e inteligente. Un profesional puede ofrecerte un plan de tratamiento personalizado.</p>
+                </div>
+            </div>
+            <div class="page-footer">Página 15</div>
+        </div>
+
+        <!-- Page 16 -->
+        <div class="page">
+            <div class="page-content">
+                <h2>Un Nuevo Comienzo: El Camino Continúa</h2>
+                <p class="mt-4">
+                    Has llegado al final, pero en realidad, estás en el principio de un nuevo camino. Ahora tienes las herramientas.
+                </p>
+                <p class="mt-4">
+                    El camino no siempre será una línea recta. Habrá días buenos y malos, y es normal. La clave no es la perfección, sino la <strong>práctica constante</strong>. Cuando la ansiedad vuelva, no te asustes. Vuelve al paso que necesites. Respira. Cuestiona. Da un pequeño paso.
+                </p>
+                <p class="mt-6 font-semibold text-lg">
+                    Has demostrado un coraje inmenso al leer hasta aquí. Ahora, usa estas herramientas para construir, día a día, una vida con más calma, más libertad y más TÚ.
+                </p>
+                <p class="mt-6">Confía en el proceso y, sobre todo, confía en ti.</p>
+            </div>
+            <div class="page-footer">Página 16</div>
+        </div>
+
+        <!-- Page 17 -->
+        <div class="page">
+            <div class="page-content">
+                <h2>Bibliografía y Fuentes Recomendadas</h2>
+                <p class="mt-4">El contenido de esta guía se inspira en los principios de la Terapia Cognitivo-Conductual (TCC), una de las formas más efectivas y estudiadas para el tratamiento de la ansiedad. Si deseas profundizar, te recomiendo las siguientes obras:</p>
+                <ul class="list-none mt-6 space-y-4">
+                    <li>
+                        <p class="font-bold">[1] Bourne, E. J. (2020). <em>The Anxiety and Phobia Workbook.</em> New Harbinger Publications.</p>
+                        <p class="text-sm text-gray-600">Una guía completa y práctica, considerada un clásico en el manejo de la ansiedad.</p>
+                    </li>
+                     <li>
+                        <p class="font-bold">[2] Leahy, R. L. (2017). <em>The Worry Cure: Seven Steps to Stop Worry from Stopping You.</em> Harmony.</p>
+                        <p class="text-sm text-gray-600">Se enfoca específicamente en cómo manejar la preocupación crónica y el pensamiento ansioso.</p>
+                    </li>
+                     <li>
+                        <p class="font-bold">[3] Burns, D. D. (1999). <em>Feeling Good: The New Mood Therapy.</em> Avon Books.</p>
+                        <p class="text-sm text-gray-600">Aunque centrado en la depresión, es la obra fundamental para entender y aplicar las técnicas de reestructuración cognitiva que son clave para la ansiedad.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="page-footer">Página 17</div>
+        </div>
+    </div>
+
+</body>
+</html>
